@@ -1,8 +1,9 @@
 const OpenButton = document.getElementById('openpopup');
 const overlay = document.getElementById('overlay');
 const ParentContainer = document.querySelector(".main");
+const BGblur = document.querySelector(".bgBlur");
 let popupCount = 0;
-
+let bgcolor = "rgb(164, 164, 164)";
 //open button logic
 OpenButton.addEventListener('click', () => {
   const popup = createPopup();
@@ -10,7 +11,7 @@ OpenButton.addEventListener('click', () => {
   overlay.style.justifyContent = 'center';
   overlay.style.alignItems = 'center';
   overlay.appendChild(popup);
-  
+  BGblur.style.backgroundColor = bgcolor;
 
 
 });
@@ -18,7 +19,7 @@ OpenButton.addEventListener('click', () => {
 
 //creating a pop here
 
-function createPopup() {
+const createPopup = () => {
   const popup = document.createElement('div');
   popup.classList.add('popup');
   popup.innerHTML = `
@@ -27,16 +28,18 @@ function createPopup() {
     <button class="Add">Add More</button>
   `;
 
+//   close button//
   const closeButton = popup.querySelector('.close');
   closeButton.addEventListener('click', () => {
     popup.remove();
     if (overlay.children.length === 0) {
       overlay.style.display = 'none';
+      BGblur.style.backgroundColor = 'transparent';
     }
-    var popBlur = overlay;
-    popBlur.classList.toggle('active');
+    
   });
 
+  //   add button//
   const addMoreButton = popup.querySelector('.Add');
   addMoreButton.addEventListener('click', () => {
     const newPopup = createPopup();
